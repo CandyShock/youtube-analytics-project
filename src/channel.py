@@ -39,9 +39,54 @@ class Channel:
 
     def to_json(self, file_name):
         with open(file_name, 'w+', encoding='utf-8') as f:
-            json.dump({'channel_id': self.channel_id}, f, ensure_ascii=False)
-            json.dump({'title': self.title}, f, ensure_ascii=False)
-            json.dump({'video_count': self.video_count}, f, ensure_ascii=False)
-            json.dump({'url': self.url}, f, ensure_ascii=False)
-            json.dump({'subscriberCount': self.subscriberCount}, f, ensure_ascii=False)
-            json.dump({'viewCount': self.viewCount}, f, ensure_ascii=False)
+            with open(file_name, 'w+', encoding='utf-8') as f:
+                note = json.dumps({'channel_id': self.channel_id}, indent=2, ensure_ascii=False)
+                f.write(note + '\n')
+                json.dump({'title': self.title}, f, ensure_ascii=False)
+                f.write(note + '\n')
+                json.dump({'video_count': self.video_count}, f, ensure_ascii=False)
+                f.write(note + '\n')
+                json.dump({'url': self.url}, f, ensure_ascii=False)
+                f.write(note + '\n')
+                json.dump({'subscriberCount': self.subscriberCount}, f, ensure_ascii=False)
+                f.write(note + '\n')
+                json.dump({'viewCount': self.viewCount}, f, ensure_ascii=False)
+                f.write(note + '\n')
+
+
+    def __str__(self):
+        return f"{self.title}, {self.url}"
+
+
+    def __add__(self, other):
+        self.subscriberCount = int(self.subscriberCount)
+        other.subscriberCount = int(other.subscriberCount)
+        return self.subscriberCount + other.subscriberCount
+
+    def __sub__(self, other):
+        self.subscriberCount = int(self.subscriberCount)
+        other.subscriberCount = int(other.subscriberCount)
+        return self.subscriberCount - other.subscriberCount
+
+    def __gt__(self, other):
+        self.subscriberCount = int(self.subscriberCount)
+        other.subscriberCount = int(other.subscriberCount)
+        if self.subscriberCount > other.subscriberCount:
+            return True
+        return False
+
+
+    def __ge__(self, other):
+        self.subscriberCount = int(self.subscriberCount)
+        other.subscriberCount = int(other.subscriberCount)
+        if self.subscriberCount >= other.subscriberCount:
+            return True
+        return False
+
+
+
+
+
+
+
+
